@@ -1,0 +1,664 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mvc5入门学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="MVC路由配置什么是MVC路由？  路由是将用户请求的Url映射到MVC控制器的操作方法中，从而得到反馈信息。我们举个例子，当请求Http://XXX/Welcome/Index这个链接的时候，它会经过路由映射到Welcome控制器中的Index操作方法中，返回操作方法结果。当然如果映射的控制器、操作方法不存在，服务器就会提示未能找到资源的错误。  我们来看一下项目中的Global.asax文件的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mvc5入门学习之路由配置">
+<meta property="og:url" content="http://ycdo.github.com/2016/10/10/Mvc5入门学习之路由配置/index.html">
+<meta property="og:site_name" content="勤能补拙">
+<meta property="og:description" content="MVC路由配置什么是MVC路由？  路由是将用户请求的Url映射到MVC控制器的操作方法中，从而得到反馈信息。我们举个例子，当请求Http://XXX/Welcome/Index这个链接的时候，它会经过路由映射到Welcome控制器中的Index操作方法中，返回操作方法结果。当然如果映射的控制器、操作方法不存在，服务器就会提示未能找到资源的错误。  我们来看一下项目中的Global.asax文件的">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/axdhandler.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/RouteExisteFile.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/RouteExisteFile1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addarea.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addarea1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addarea3.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addarea4.png">
+<meta property="og:updated_time" content="2016-10-10T23:43:41.857Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mvc5入门学习之路由配置">
+<meta name="twitter:description" content="MVC路由配置什么是MVC路由？  路由是将用户请求的Url映射到MVC控制器的操作方法中，从而得到反馈信息。我们举个例子，当请求Http://XXX/Welcome/Index这个链接的时候，它会经过路由映射到Welcome控制器中的Index操作方法中，返回操作方法结果。当然如果映射的控制器、操作方法不存在，服务器就会提示未能找到资源的错误。  我们来看一下项目中的Global.asax文件的">
+<meta name="twitter:image" content="http://ycdo.github.com/img/2016/10/axdhandler.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6295473888616777000,
+      author: 'YCDO'
+    }
+  };
+</script>
+
+  <title> Mvc5入门学习之路由配置 | 勤能补拙 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">勤能补拙</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">工欲善其事，必先利其器</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mvc5入门学习之路由配置
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T20:14:55+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Asp-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Asp.Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/10/Mvc5入门学习之路由配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/Mvc5入门学习之路由配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="MVC路由配置"><a href="#MVC路由配置" class="headerlink" title="MVC路由配置"></a>MVC路由配置</h3><h4 id="什么是MVC路由？"><a href="#什么是MVC路由？" class="headerlink" title="什么是MVC路由？"></a>什么是MVC路由？</h4><p>  路由是将用户请求的Url映射到MVC控制器的操作方法中，从而得到反馈信息。我们举个例子，当请求Http://XXX/Welcome/Index这个链接的时候，它会经过路由映射到Welcome控制器中的Index操作方法中，返回操作方法结果。当然如果映射的控制器、操作方法不存在，服务器就会提示未能找到资源的错误。<br>  我们来看一下项目中的Global.asax文件的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class MvcApplication : System.Web.HttpApplication</span><br><span class="line"> &#123;</span><br><span class="line">        protected void Application_Start()</span><br><span class="line">        &#123;</span><br><span class="line">            AreaRegistration.RegisterAllAreas();</span><br><span class="line">            RouteConfig.RegisterRoutes(RouteTable.Routes);</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Application_Start这个方法中的代码会在应用程序启动时执行，其中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RouteConfig.RegisterRoutes(RouteTable.Routes);</span><br></pre></td></tr></table></figure></p>
+<p>这段代码功能就是将路由规则添加到存储应用程序的URL路由列表中。我们来看一下RegisterRoutes方法怎么定义的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class RouteConfig</span><br><span class="line"> &#123;</span><br><span class="line">        public static void RegisterRoutes(RouteCollection routes)</span><br><span class="line">        &#123;</span><br><span class="line">            routes.IgnoreRoute(&quot;&#123;resource&#125;.axd/&#123;*pathInfo&#125;&quot;); </span><br><span class="line"></span><br><span class="line">            routes.MapRoute(</span><br><span class="line">                name: &quot;Default&quot;,</span><br><span class="line">                url: &quot;&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">                defaults: new &#123; controller = &quot;Blog&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional &#125;</span><br><span class="line">            ); </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>routes.IgnoreRoute(“{resource}.axd/{*pathInfo}”);</strong>这段代码功能是当前应用程序URL路由对以axd为后缀名的资源请求不处理，直接进行URL访问。<br><strong>{resource}.axd</strong>表示所有以axd为后缀名的资源。<br><strong>{*pathinfo}</strong>表示所有路径<br>举个例子，如果按照以上配置路由，它将不会处理以下链接：<br>Http://XXX/getusername.axd?id=10000，它将会直接进行URL访问。</p>
+<h4 id="那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？"><a href="#那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？" class="headerlink" title="那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？"></a>那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？</h4><p>实际上axd文件就是虚拟出来的文件，它的作用就是与一般处理程序作用差不多，都是用于处理Web Handle的，我们知道使用一般处理程序的时候只需要在项目添加ashx既可，但是使用axd的时候需要在Web项目根目录的Web.config中进行配置后才可以使用,我们看一下怎么使用axd文件<br>  首先我们现在Web项目中创建一个文件夹，然后添加一个名称为Axd.cs的类，让类继承IHttpHandler接口，实现IHttpHandler接口方法，修改IsReusable 与ProcessRequest方法，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Web;</span><br><span class="line"></span><br><span class="line">namespace BlogManage.Common</span><br><span class="line">&#123;</span><br><span class="line">    public class Axd : IHttpHandler</span><br><span class="line">    &#123;</span><br><span class="line">        public bool IsReusable</span><br><span class="line">        &#123;</span><br><span class="line">            get &#123; return false; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void ProcessRequest(HttpContext context)</span><br><span class="line">        &#123;</span><br><span class="line">            string name = context.Request[&quot;name&quot;];</span><br><span class="line">            context.Response.ContentType = &quot;text/plain&quot;;</span><br><span class="line">            context.Response.Write(string.Format(&quot;Hello，My Name Is &#123;0&#125;.This File Is Axd.cs&quot;, name));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们还需要在项目Web.config中配置一下节点，将虚拟路径映射到这个继承IHttpHandler接口的类中，需要在<strong>“configuration”</strong>节点下添加如下节点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">    &lt;handlers&gt;</span><br><span class="line">      &lt;add name=&quot;AxdHandler&quot; path=&quot;axd.getusername.axd&quot; type=&quot;BlogManage.Common.Axd&quot; verb=&quot;GET,POST,PUT&quot; /&gt; </span><br><span class="line">    &lt;/handlers&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure></p>
+<p>  其中属性name为名称，path为虚拟的路径，就是你执行GET/POST的路径，type为类名（<em>需要加上命名空间</em>）。<br>    最后，因为我们要避免用路由处理axd资源文件，直接进行URL访问，所以就需要让路由不处理axd资源的请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes.IgnoreRoute(&quot;&#123;resource&#125;.axd/&#123;*pathInfo&#125;&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>然后我们F5运行：<br><img src="/img/2016/10/axdhandler.png" alt="添加处理文件 Icon"><br>  这就是<strong>routes.IgnoreRoute(“{resource}.axd/{*pathInfo}”);</strong>这段代码的实际操作中的作用。当然你也可以根据业务需要添加其他的不需要路由处理的请求。<br>  然后，我们看一下<strong>routes.MapRoute</strong>方法，其实这个方法是创建项目生成的默认方法，它还有几个重载方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Route MapRoute( string name, string url); </span><br><span class="line">Route MapRoute( string name, string url, object defaults);</span><br><span class="line">Route MapRoute( string name, string url, string[] namespaces);</span><br><span class="line">Route MapRoute( string name, string url, object defaults, object constraints);</span><br><span class="line">Route MapRoute( string name, string url, object defaults, string[] namespaces);</span><br><span class="line">Route MapRoute( string name, string url, object defaults, object constraints, string[] namespaces);</span><br></pre></td></tr></table></figure></p>
+<p>我们看一下方法中各个参数的作用：<br><strong>Name：</strong>要映射的路由的名称。可以按照业务进行起名，这个没有限制，但是路由名称必须唯一。<br><strong>url：</strong>路由的 URL 模式。是路由捕获请求的规则，通常都是”{controller}/{action}/{id}”这样进行设置，其中{controller}这种写法是占位符，其中{controller}与{action}是固定写法，用来获取控制器与方法名称，{id}这是自定义的写法，例如：<a href="http://XXX/Blog/Index/100，这个请求在Index获取id的值就是100。" target="_blank" rel="external">http://XXX/Blog/Index/100，这个请求在Index获取id的值就是100。</a><br><strong>defaults：</strong>一个包含默认路由值的对象。例如像如下new { controller = “Blog”, action = “Index”, id = UrlParameter.Optional }配置的话，其中UrlParameter.Optional指定了id为可选参数，访问链接经过路由的各种实际请求情况：<br><a href="http://XXX/-&gt;" target="_blank" rel="external">http://XXX/-&gt;</a> <a href="http://XXX/Blog/Index" target="_blank" rel="external">http://XXX/Blog/Index</a><br><a href="http://XXX/Home-&gt;http://XXX/Home/Index" target="_blank" rel="external">http://XXX/Home-&gt;http://XXX/Home/Index</a><br><a href="http://XXX/Home/Hello-&gt;http://XXX/Blog/Hello" target="_blank" rel="external">http://XXX/Home/Hello-&gt;http://XXX/Blog/Hello</a><br><strong>namespaces：</strong>应用程序的一组命名空间。限定该匹配路由在哪个命名空间有效。<br><strong>constraints：</strong>一组表达式，用于指定 url 参数的值。可以指定url参数匹配的具体方式，可以用正则表达式、http请求方式来指定方式。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constraints: new &#123; controller = @&quot;^B.*&quot; , action = @&quot;^[a-z].*&quot;,  httpMethod = new HttpMethodConstraint(new string[] &#123; &quot;GET&quot;, &quot;POST&quot; &#125;) &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个匹配url参数的方式是用正则的方式限制控制器名称，规则是以B/b开头的名称（<em>这里的正则默认是忽略大小写的</em>），限定了控制器方法的名称必须以英文字母开头，指定了http的请求方式为GET/POST。当然路由参数defaults的配置必须匹配constraints的方式，否则应用程序将无法访问。</p>
+<h4 id="除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？"><a href="#除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？" class="headerlink" title="除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？"></a>除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？</h4><h5 id="静态URL"><a href="#静态URL" class="headerlink" title="静态URL"></a>静态URL</h5><p>routes.MapRoute(name: “WelcomeRoute”, url: “welcome”, defaults: new { controller = “Home”, action = “Welcome”, });Http://XXX/Welcome欢迎页<br>routes.MapRoute(name: “ProductRoute”, url: “product”, defaults: new { controller = “Home”, action = “Product”, });Http://XXX/Product产品页<br>在项目中可以缩短那些用户经常访问的链接，这样可以更利于宣传介绍。</p>
+<h5 id="匹配可变长度URL"><a href="#匹配可变长度URL" class="headerlink" title="匹配可变长度URL"></a>匹配可变长度URL</h5><p>在自定义占位符左括号开始位置，加<strong>*</strong>符号，他将匹配可变长度的URL参数，例如路由配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes.MapRoute(name: &quot;HomeRoute&quot;, url: &quot;&#123;controller&#125;/&#123;action&#125;/&#123;user&#125;/&#123;*other&#125;&quot;, defaults: new &#123; controller = &quot;Home&quot;, action = &quot;Index&quot;, user = &quot;10000&quot; &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>控制器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    //</span><br><span class="line">    // GET: /Home/ </span><br><span class="line">    public ActionResult Index(string user)</span><br><span class="line">    &#123;</span><br><span class="line">        return Content(&quot;user is &quot; + user + &quot;,and the parameter other is &quot; + RouteData.Values[&quot;other&quot;]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们访问<br><a href="http://XXX/Home/Index/1000/My/Name/Is或者http://XXX/Home/Index/1000/My/Name/Is/YCDO链接时" target="_blank" rel="external">http://XXX/Home/Index/1000/My/Name/Is或者http://XXX/Home/Index/1000/My/Name/Is/YCDO链接时</a><br>这是我们会发现路由的URL参数other将会匹配My/Name/Is与My/Name/Is/YCDO，其他并无影响。</p>
+<h5 id="路由约束"><a href="#路由约束" class="headerlink" title="路由约束"></a>路由约束</h5><p>上面已经介绍了一些路由约束，有正则表达式、Http请求方式、指定命名空间等约束，这里就不进行赘述了。</p>
+<h5 id="直接进行本地资源的访问"><a href="#直接进行本地资源的访问" class="headerlink" title="直接进行本地资源的访问"></a>直接进行本地资源的访问</h5><p>路由也可以处理现有文件的URL访问，例如Javascript、Css的访问<br><img src="/img/2016/10/RouteExisteFile.png" alt="访问Css Icon"><br>然后在默认路由前填写以下代码，当访问样式文件时，他就会重定向/Blog/Index上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">routes.RouteExistingFiles = true;</span><br><span class="line">            routes.MapRoute(</span><br><span class="line">             name: &quot;htmlRoute&quot;,</span><br><span class="line">             url: &quot;Content/bootstrap.css&quot;,</span><br><span class="line">             defaults: new &#123; controller = &quot;Blog&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>其中Routes.RouteExistingFiles（<em>获取或设置一个值，该值指示 ASP.NET 路由操作是否应处理与现有文件匹配的 URL。</em>）的默认值为false，只有为true时，才会生效。<br><img src="/img/2016/10/RouteExisteFile1.png" alt="访问Css重定向 Icon"><br>如果我们还要保留一些本地文件的访问，只使用路由处理部分的现有文件的URL，那该如何实现呢？<br>还要用到routes.IgnoreRoute，只需要执行routes.IgnoreRoute(“Content/*pathInfo”);就可以了。</p>
+<h5 id="区域路由"><a href="#区域路由" class="headerlink" title="区域路由"></a>区域路由</h5><p>区域是MVC为了使复杂项目层次更清晰的进行管理，充分的体现了关注点分离的优点。<br>当开发团队开发一个业务多，比较复杂的项目时，通常状况是将项目独立出来，分派给不同的开发人员，但是这样不利于项目的集中管理与发布，或者直接在一个项目的控制器文件夹下进行管理，这样会显得业务很乱，不利于团队代码版本的管理，这时候区域的优势就体现出来了。<br>我们来新建一个区域：选中Web项目鼠标右键-&gt;添加-&gt;区域<br><img src="/img/2016/10/addarea.png" alt="添加区域 Icon"><br>输入Admin，点击确认，然后会发现在项目中会生成如下图的结构<br><img src="/img/2016/10/addarea1.png" alt="区域结构 Icon"><br>我们会发现这里的结构与主项目差不多，添加区域后会生成一个[<em>AreaName</em>]AreaRegistration.cs的类文件，我们看一下代码内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System.Web.Mvc; </span><br><span class="line">namespace BlogManage.Areas.Admin</span><br><span class="line">&#123;</span><br><span class="line">    public class AdminAreaRegistration : AreaRegistration </span><br><span class="line">    &#123;</span><br><span class="line">        public override string AreaName </span><br><span class="line">        &#123;</span><br><span class="line">            get </span><br><span class="line">            &#123;</span><br><span class="line">                return &quot;Admin&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public override void RegisterArea(AreaRegistrationContext context) </span><br><span class="line">        &#123;</span><br><span class="line">            context.MapRoute(</span><br><span class="line">                &quot;Admin_default&quot;,</span><br><span class="line">                &quot;Admin/&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">                new &#123; action = &quot;Index&quot;, id = UrlParameter.Optional &#125;</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们发现AdminAreaRegistration这个类继承一个抽象类AreaRegistration，实现了抽象类的属性AreaName与RegisterArea方法，其中RegisterArea方法与主项目的路由规则配置大致相同，接下来我们在Admin区域添加一个Blog控制器，并创建视图，视图内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@&#123;</span><br><span class="line">    Layout = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Index&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt; </span><br><span class="line">        &lt;h2&gt;My Class NameSpace Is BlogManage.Areas.Admin.Controllers&lt;/h2&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们F5运行一下<br><img src="/img/2016/10/addarea3.png" alt="访问区域控制器 Icon"><br>然后我们在主项目也添加一个相同名称的路由，然后创建视图，F5访问<br><img src="/img/2016/10/addarea4.png" alt="访问主控制器 Icon"><br>我们会发现程序出错了，项目找到多个Blog控制器，这时我们可以在主项目的路由规则配置里加上命名空间的限制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namespaces: new string[] &#123; &quot;BlogManage.Controllers&quot; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>再次访问就可以正常访问了。<br>其中这里区域路由与主项目的路由执行匹配顺序是按照全局文件（<em>Global.asax</em>）中路由注册顺序执行的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Web;</span><br><span class="line">using System.Web.Mvc;</span><br><span class="line">using System.Web.Routing;</span><br><span class="line"></span><br><span class="line">namespace BlogManage</span><br><span class="line">&#123;</span><br><span class="line">    public class MvcApplication : System.Web.HttpApplication</span><br><span class="line">    &#123;</span><br><span class="line">        protected void Application_Start()</span><br><span class="line">        &#123;</span><br><span class="line">            AreaRegistration.RegisterAllAreas();</span><br><span class="line">            RouteConfig.RegisterRoutes(RouteTable.Routes);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里是先进行区域路由匹配查询。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>注意在实际项目中添加自定义路由时，一定要确保自定义路由优先默认路由执行，因为路由的匹配是由上到下按照顺序匹配的，匹配之后将不会匹配其他注册的路由，这样当匹配自定义路由时就不会匹配其他路由，如果默认路由优先执行的话，就会进行默认路由的匹配，这样将不会保证业务逻辑的正确执行。下一篇将介绍MVC5新特性Attribute路由。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mvc5入门学习/" rel="tag">#Mvc5入门学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/24/Mvc5入门学习之怎样添加控制器与创建视图文件/" rel="next" title="Mvc5入门学习之怎样添加控制器与创建视图文件">
+                <i class="fa fa-chevron-left"></i> Mvc5入门学习之怎样添加控制器与创建视图文件
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/10/Mvc5入门学习之路由配置/"
+     data-title="Mvc5入门学习之路由配置"
+     data-content=""
+     data-url="http://ycdo.github.com/2016/10/10/Mvc5入门学习之路由配置/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/10/Mvc5入门学习之路由配置/"
+           data-title="Mvc5入门学习之路由配置" data-url="http://ycdo.github.com/2016/10/10/Mvc5入门学习之路由配置/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://zhangbaolei.com/images/avatar2.png"
+               alt="张宝蕾" />
+          <p class="site-author-name" itemprop="name">张宝蕾</p>
+          <p class="site-description motion-element" itemprop="description">工欲善其事，必先利其器</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC路由配置"><span class="nav-number">1.</span> <span class="nav-text">MVC路由配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是MVC路由？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是MVC路由？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？"><span class="nav-number">1.2.</span> <span class="nav-text">那问题来了，在以上配置中的以axd为后缀名的文件是什么？有什么作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？"><span class="nav-number">1.3.</span> <span class="nav-text">除了这些基本路由方法的定义以及参数的含义，在实际项目中都有哪些作用？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#静态URL"><span class="nav-number">1.3.1.</span> <span class="nav-text">静态URL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匹配可变长度URL"><span class="nav-number">1.3.2.</span> <span class="nav-text">匹配可变长度URL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#路由约束"><span class="nav-number">1.3.3.</span> <span class="nav-text">路由约束</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#直接进行本地资源的访问"><span class="nav-number">1.3.4.</span> <span class="nav-text">直接进行本地资源的访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区域路由"><span class="nav-number">1.3.5.</span> <span class="nav-text">区域路由</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张宝蕾</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ycdo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
