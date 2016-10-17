@@ -239,8 +239,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/21/Mvc5入门学习之MVC模式/" itemprop="url">
-                  Mvc5入门学习之MVC模式
+                <a class="post-title-link" href="/2016/09/22/Mvc5入门学习之项目工程结构介绍/" itemprop="url">
+                  Mvc5入门学习之项目工程结构介绍
                 </a>
               
             
@@ -253,8 +253,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T09:14:03+08:00" content="2016-09-21">
-              2016-09-21
+            <time itemprop="dateCreated" datetime="2016-09-22T10:01:49+08:00" content="2016-09-22">
+              2016-09-22
             </time>
           </span>
 
@@ -283,8 +283,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/21/Mvc5入门学习之MVC模式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/Mvc5入门学习之MVC模式/" itemprop="commentsCount"></span>
+                <a href="/2016/09/22/Mvc5入门学习之项目工程结构介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/Mvc5入门学习之项目工程结构介绍/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -309,14 +309,21 @@
       
         
           
-            <h3 id="什么是MVC模式？"><a href="#什么是MVC模式？" class="headerlink" title="什么是MVC模式？"></a>什么是MVC模式？</h3><p>  MVC（Model-View-Controller，模型-视图-控制器）是一种编程模式，它是把应用程序的关注点进行分离，更清晰、有效的一种开发模式，看下面的结构图会更简单明了。<br><img src="/img/2016/9/mvcmode.png" alt="MVC模式 Icon"></p>
+            <h3 id="MVC5工程项目介绍"><a href="#MVC5工程项目介绍" class="headerlink" title="MVC5工程项目介绍"></a>MVC5工程项目介绍</h3><p>  首先我们先创建一个解决方案为BlogManage一个空的Mvc5应用程序，如下<br>  <img src="/img/2016/9/buildproject1.png" alt="创建工程项目第一步 Icon"></p>
+<p>  点击确定后，Visual Studio将为我们生成一个名称为BlogManage的Web应用程序，如下<br>   <img src="/img/2016/9/buildproject2.png" alt="创建工程项目第二步 Icon"></p>
+<p>   首先我们按照顺序看看每个文件夹都有什么作用</p>
 <ul>
-<li><h4 id="View（视图）"><a href="#View（视图）" class="headerlink" title="View（视图）"></a>View（视图）</h4>视图是用户在Web应用程序中看到的并可以交互的界面。</li>
-<li><h4 id="Model（模型）"><a href="#Model（模型）" class="headerlink" title="Model（模型）"></a>Model（模型）</h4>模型表示业务数据的规则，由于模型数据格式固定，它可以用于多个视图的构建，从而增加了模型代码的可复用性。</li>
-<li><h4 id="Controller（控制器）"><a href="#Controller（控制器）" class="headerlink" title="Controller（控制器）"></a>Controller（控制器）</h4>控制器是接收用户请求并向模型发送指令与选择响应视图。</li>
+<li><h4 id="App-Data：-这里是存放应用程序的本地数据库，它可能包括MicrosoftAccess数据库、Microsoft-SQL-Sever-Express数据库、Xml文件、文本文件，或者应用程序支持的任何其他可存储数据的文件。"><a href="#App-Data：-这里是存放应用程序的本地数据库，它可能包括MicrosoftAccess数据库、Microsoft-SQL-Sever-Express数据库、Xml文件、文本文件，或者应用程序支持的任何其他可存储数据的文件。" class="headerlink" title="App_Data： 这里是存放应用程序的本地数据库，它可能包括MicrosoftAccess数据库、Microsoft SQL Sever Express数据库、Xml文件、文本文件，或者应用程序支持的任何其他可存储数据的文件。"></a>App_Data： 这里是存放应用程序的本地数据库，它可能包括MicrosoftAccess数据库、Microsoft SQL Sever Express数据库、Xml文件、文本文件，或者应用程序支持的任何其他可存储数据的文件。</h4></li>
+<li><h4 id="App-Start：-App-Start可以从书面上理解，它是应用程序开始的意思，就是存放一些应用程序启动时执行的一些配置代码，一般包括以下文件："><a href="#App-Start：-App-Start可以从书面上理解，它是应用程序开始的意思，就是存放一些应用程序启动时执行的一些配置代码，一般包括以下文件：" class="headerlink" title="App_Start： App_Start可以从书面上理解，它是应用程序开始的意思，就是存放一些应用程序启动时执行的一些配置代码，一般包括以下文件："></a>App_Start： App_Start可以从书面上理解，它是应用程序开始的意思，就是存放一些应用程序启动时执行的一些配置代码，一般包括以下文件：</h4>AuthConfig：配置安全设置，包括网站的授权登录。<br>BundleConfig：用来注册捆绑与微小，可以将页面的Javascript、Css进行捆绑压缩，可以减少网络流量，增加应用程序的访问速度。<br>FilterConfig：用来注册全局的过滤器。<br>RouteConfig：MVC应用程序路由的配置。<br>WebApiConfig：用于注册WebApi的路由以及一些配置。</li>
+<li><h4 id="Controller：-存放控制器类。"><a href="#Controller：-存放控制器类。" class="headerlink" title="Controller： 存放控制器类。"></a>Controller： 存放控制器类。</h4></li>
+<li><h4 id="Models：-存放模型类。"><a href="#Models：-存放模型类。" class="headerlink" title="Models： 存放模型类。"></a>Models： 存放模型类。</h4></li>
+<li><h4 id="Views：-存放视图。"><a href="#Views：-存放视图。" class="headerlink" title="Views： 存放视图。"></a>Views： 存放视图。</h4></li>
+<li><h4 id="Global-asax：-全局应用程序的事件的处理程序。"><a href="#Global-asax：-全局应用程序的事件的处理程序。" class="headerlink" title="Global.asax： 全局应用程序的事件的处理程序。"></a>Global.asax： 全局应用程序的事件的处理程序。</h4>一般AuthConfig、BundleConfig、FilterConfig、RouteConfig、WebApiConfig这些的配置代码都在这个文件进行注册、配置。</li>
+<li><h4 id="package-config：NuGet引用包配置。"><a href="#package-config：NuGet引用包配置。" class="headerlink" title="package.config：NuGet引用包配置。"></a>package.config：NuGet引用包配置。</h4></li>
+<li><h4 id="Web-config：-网站配置文件。"><a href="#Web-config：-网站配置文件。" class="headerlink" title="Web.config： 网站配置文件。"></a>Web.config： 网站配置文件。</h4></li>
 </ul>
 <hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>  <strong> 那么问题来了，我们为什么要用MVC开发模式，它的优点在哪里？ </strong><br>  MVC优势在于管理复杂的应用程序，是对开发应用程序的关注点进行分离，您可以不依赖业务逻辑的前提下专注于页面视图的设计，尤其在复杂的项目中，进行团队开发时候，MVC可以进行分组开发，不同的开发人员可以进行控制器逻辑开发、业务逻辑开发、视图设计开发。更多的优点我们将一步一步去体验，下一篇将介绍工程项目的具体结构。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>了解这些对我们至关重要，把相应的文件放在相应的位置，这样不仅可以让我们的应用程序层次更加清晰，还可以让以后接手此项目的人员快速上手，增加了项目的可维护性，也利于二次开发。下一篇将介绍怎样添加控制器与创建视图文件。</p>
 
           
         
@@ -349,7 +356,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -390,7 +397,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

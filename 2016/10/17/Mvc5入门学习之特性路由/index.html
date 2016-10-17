@@ -1,0 +1,661 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mvc5入门学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="特性路由 什么是特性路由？它有什么作用？怎样去使用特性路由？  特性路由：放置在某个控制器或操作上，以通过路由直接将它公开。特性路由是MVC5的新特性，它可以在控制器中更灵活的应用路由匹配规则以及路由约束。使用特性路由需要在路由配置（RouteConfig.cs/Global.asax）里启动特性路由1routes.MapMvcAttributeRoutes();
+我们来看一下特性路由经常使用的R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mvc5入门学习之特性路由">
+<meta property="og:url" content="http://ycdo.github.com/2016/10/17/Mvc5入门学习之特性路由/index.html">
+<meta property="og:site_name" content="勤能补拙">
+<meta property="og:description" content="特性路由 什么是特性路由？它有什么作用？怎样去使用特性路由？  特性路由：放置在某个控制器或操作上，以通过路由直接将它公开。特性路由是MVC5的新特性，它可以在控制器中更灵活的应用路由匹配规则以及路由约束。使用特性路由需要在路由配置（RouteConfig.cs/Global.asax）里启动特性路由1routes.MapMvcAttributeRoutes();
+我们来看一下特性路由经常使用的R">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addmorenluyou.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addmorenluyou1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addkexuan.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addkexuan1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addmoren.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addmoren1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addluyouyueshu.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addluyouyueshu1.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addzidingyiluyouyueshu.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addzidingyiluyouyueshu2.png">
+<meta property="og:image" content="http://ycdo.github.com/img/2016/10/addzidingyiluyouyueshu1.png">
+<meta property="og:updated_time" content="2016-10-17T09:16:43.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mvc5入门学习之特性路由">
+<meta name="twitter:description" content="特性路由 什么是特性路由？它有什么作用？怎样去使用特性路由？  特性路由：放置在某个控制器或操作上，以通过路由直接将它公开。特性路由是MVC5的新特性，它可以在控制器中更灵活的应用路由匹配规则以及路由约束。使用特性路由需要在路由配置（RouteConfig.cs/Global.asax）里启动特性路由1routes.MapMvcAttributeRoutes();
+我们来看一下特性路由经常使用的R">
+<meta name="twitter:image" content="http://ycdo.github.com/img/2016/10/addmorenluyou.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6295473888616777000,
+      author: 'YCDO'
+    }
+  };
+</script>
+
+  <title> Mvc5入门学习之特性路由 | 勤能补拙 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">勤能补拙</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">工欲善其事，必先利其器</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mvc5入门学习之特性路由
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-17T16:08:15+08:00" content="2016-10-17">
+              2016-10-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Asp-Net/" itemprop="url" rel="index">
+                    <span itemprop="name">Asp.Net</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/17/Mvc5入门学习之特性路由/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/Mvc5入门学习之特性路由/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="特性路由"><a href="#特性路由" class="headerlink" title="特性路由"></a>特性路由</h3><p><strong> 什么是特性路由？它有什么作用？怎样去使用特性路由？ </strong><br><strong> 特性路由：</strong>放置在某个控制器或操作上，以通过路由直接将它公开。<br>特性路由是MVC5的新特性，它可以在控制器中更灵活的应用路由匹配规则以及路由约束。<br>使用特性路由需要在路由配置（<em>RouteConfig.cs/Global.asax</em>）里启动特性路由<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes.MapMvcAttributeRoutes();</span><br></pre></td></tr></table></figure></p>
+<p>我们来看一下特性路由经常使用的RoutePrefix，RouteArea，Route三个Attribute<br><strong> RoutePrefix：</strong>使用应用到某个控制器中所有操作的路由前缀来批注该控制器。它是作用于控制器的，有一个String类型的prefix的参数。Prefix大多数情况是由标识符组成，也可以含有“.”,“@”等特殊字符、中文字符。<br><em>Prefix表示路由前缀名称。</em><br><strong> RouteArea：</strong>定义要为此控制器中定义的所有路由设置的区域。它也是只作用于控制器，有AreaName，AreaPrefix两个参数可以设置，使用这个Attribute时，如果现有项目中存在区域，注意不要与[<em>AreaName</em>]AreaRegistration.cs文件中的路由规则冲突。<br><em>AreaName表示要为控制器中定义的所有路由设置的区域名称。</em><br><em>AreaPrefix表示要应用到此区域的路由的 URL 前缀。</em><br><strong> Route：</strong>放置在某个控制器或操作上，以通过路由直接将它公开。它可以作用于操作、控制器，作用于控制器时，当指定“{action=List}”时，它会设置默认路由操作，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[RoutePrefix(&quot;Company&quot;)]</span><br><span class="line">[Route(&quot;&#123;action=List&#125;&quot;)]</span><br><span class="line">public class CompanyController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	//</span><br><span class="line">	// GET: /Company/</span><br><span class="line">	public ActionResult List()</span><br><span class="line">	&#123;</span><br><span class="line">		return Content(&quot;&lt;h2&gt;This Action Is List&lt;/h2&gt;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当访问/Company时，他将定向到List操作中<br><img src="/img/2016/10/addmorenluyou.png" alt="默认路由 Icon"><br>当未指定“{action=List}”默认路由操作时，它将映射到控制器中未设定Route Attribute的操作中，出现多个未设定的操作，将会出现“当前请求在下列操作方法之间不明确”的错误，如果所有操作都已设定Route Attribute，则会出现无法访问（<em>404</em>），例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[RoutePrefix(&quot;Company&quot;)]</span><br><span class="line">[Route(&quot;jieshao&quot;)]</span><br><span class="line">public class CompanyController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	//</span><br><span class="line">	// GET: /Company/</span><br><span class="line">	[Route(&quot;List&quot;)]</span><br><span class="line">	public ActionResult List()</span><br><span class="line">	&#123;</span><br><span class="line">		return Content(&quot;&lt;h2&gt;This Action Is List&lt;/h2&gt;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public ActionResult Details()</span><br><span class="line">	&#123;</span><br><span class="line">		return Content(&quot;&lt;h2&gt;This Action Is Details&lt;/h2&gt;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当访问/Company/jieshao时，它会定向到Details的操作上<br><img src="/img/2016/10/addmorenluyou1.png" alt="默认路由  Icon"><br>Route作用于操作上，可设置匹配模式进行匹配操作，它有String类型参数Template，以及命名参数Name，Order三个参数可以设置。<br><em>Template表示要匹配的模式。</em>这个参数可以设置路由约束，以及匹配的模式，接下来会详细介绍。<br><em>Name表示路由的名称。</em>可以在生成链接是使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Html.RouteLink(&quot;编辑&quot;, &quot;WelcomeRoute&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>其中WelcomeRoute为路由名称。<br><em>Order表示路由的应用顺序。</em>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[RoutePrefix(&quot;Home&quot;)]</span><br><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	//</span><br><span class="line">	// GET: /Home/    </span><br><span class="line">	[Route(&quot;Welcome&quot;, Order = 3)]</span><br><span class="line">	public ActionResult Welcome()</span><br><span class="line">	&#123;</span><br><span class="line">		return Content(&quot;This Action Is Welcome&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	[Route(&quot;Welcome&quot;, Order = 2)]</span><br><span class="line">	public ActionResult Welcome1()</span><br><span class="line">	&#123; </span><br><span class="line">		return Content(&quot;This Action Is Welcome1&quot;); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当访问/Home/Welcome，它将按照Order正序优先匹配操作Welcome1。<br><strong>项目中实际应用</strong><br><strong>1、设置可选参数以及默认参数</strong><br>可选参数：在Route的匹配模式中“{参数}”表示一个参数占位符，其中参数后加一个“?”-&gt;“{参数?}”表示这个参数为可选参数，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Route(&quot;List/&#123;id?&#125;&quot;)]</span><br><span class="line">public ActionResult List(string id)</span><br><span class="line">&#123;</span><br><span class="line">	ViewData[&quot;id&quot;] = id;</span><br><span class="line">	return View();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/2016/10/addkexuan.png" alt="可选参数 Icon"><br><img src="/img/2016/10/addkexuan1.png" alt="可选参数 Icon"><br>默认参数：在Route的匹配模式中“{参数=默认值}”表示这个参数为默认参数，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Route(&quot;Details/&#123;id&#125;/&#123;price=23&#125;&quot;)]</span><br><span class="line">public ActionResult Details(string id, int price)</span><br><span class="line">&#123;</span><br><span class="line">	ViewData[&quot;id&quot;] = id;</span><br><span class="line">	ViewData[&quot;price&quot;] = price;</span><br><span class="line">	return View();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/2016/10/addmoren.png" alt="默认参数 Icon"><br><img src="/img/2016/10/addmoren1.png" alt="默认参数 Icon"><br><strong>2、    更灵活的路由约束</strong><br>路由约束是指在参数占位符上进行约束，可以是数据类型约束，数据的可用范围约束，正则表达式约束。它的格式是{参数:约束}，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[RoutePrefix(&quot;Users&quot;)]</span><br><span class="line">public class UsersController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	//</span><br><span class="line">	// GET: /Users/</span><br><span class="line">    [Route(&quot;Edit/&#123;id:long&#125;/&#123;age:int&#125;/&#123;name:regex(^[\\u4e00-\\u9fa5]&#123;3,10&#125;$)&#125;&quot;)]</span><br><span class="line">	public ActionResult Edit(long id, int age, string name)</span><br><span class="line">	&#123;</span><br><span class="line">		return Content(string.Format(&quot;My Name Is &#123;0&#125;,My Age Is &#123;1&#125;&quot;, name, age));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当访问“/Users/Edit/100000/26/张先生”时<br><img src="/img/2016/10/addluyouyueshu.png" alt="路由约束 Icon"><br>访问“/Users/Edit/100000/二十六/张先生”时<br><img src="/img/2016/10/addluyouyueshu1.png" alt="路由约束 Icon"><br>因为参数age定义约束为整型，“二十六”将无法匹配。<br>以下是一些常用的内联约束<br><strong>{param:alpha}表示参数为大小写英文。<br>{param:bool}表示参数为布尔型。<br>{param:int}表示参数为int类型。<br>{param:long}表示参数为long类型。<br>{param:datetime}表示参数为DateTime类型。<br>{param:decimal}表示参数为decimal类型。<br>{param:double}表示参数为double类型。<br>{param:float}表示参数为float类型。<br>{param:guid}表示参数为Guid类型。<br>{param:length(3)}表示字符串长度为固定长度。<br>{param:length(3,6)}表示字符串长度为指定范围。<br>{param:min(5)}表示大于等于固定值的整数。<br>{param:max(5)}表示小于等于固定值的整数。<br>{param:maxlength(5)}表示字符串长度小于等于给定长度。<br>{param:minlength(5)}表示字符串长度大于等于给定长度。<br>{param:regex([\u4e00-\u9fa5]*)}表示字符串匹配正则表达式。<br>{param:range(5,10)}表示参数为给定范围内的整数。</strong><br>如果给定的内联约束无法满足业务需要，也可以自定义路由约束<br><strong>新建一个类，并继承IRouteConstraint接口 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class CustomeConstraint : IRouteConstraint</span><br><span class="line">&#123;</span><br><span class="line">	public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)</span><br><span class="line">	&#123;</span><br><span class="line">		IList&lt;string&gt; roles = new List&lt;string&gt;() &#123; &quot;R00001&quot;, &quot;R00011&quot;, &quot;R00111&quot;, &quot;R01111&quot;, &quot;R11111&quot; &#125;;</span><br><span class="line">		object value;</span><br><span class="line">		if (values.TryGetValue(parameterName, out value) &amp;&amp; value != null)</span><br><span class="line">		&#123;</span><br><span class="line">			string str = Convert.ToString(value, CultureInfo.CurrentCulture).Trim();</span><br><span class="line">			return roles.Contains(str);</span><br><span class="line">		&#125;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>须引用“System.Web.Routing，System.Globalization”命名空间<br><strong>路由配置中须注册一下自定义路由约束</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static void RegisterRoutes(RouteCollection routes)</span><br><span class="line">&#123;</span><br><span class="line">	routes.IgnoreRoute(&quot;&#123;resource&#125;.axd/&#123;*pathInfo&#125;&quot;);</span><br><span class="line"></span><br><span class="line">	var constraintResolver = new DefaultInlineConstraintResolver();</span><br><span class="line">	constraintResolver.ConstraintMap.Add(&quot;roles&quot;, typeof(CustomeConstraint)); </span><br><span class="line">	routes.MapMvcAttributeRoutes(constraintResolver); </span><br><span class="line"></span><br><span class="line">	routes.MapRoute(</span><br><span class="line">		name: &quot;Default&quot;,</span><br><span class="line">		url: &quot;&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">		defaults: new &#123; controller = &quot;Blog&quot;, action = &quot;Index&quot;, id = UrlParameter.Optional &#125;,</span><br><span class="line">		namespaces: new string[] &#123; &quot;BlogManage.Controllers&quot; &#125;</span><br><span class="line">		);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>须引用“System.Web.Mvc.Routing”命名空间<br><strong>控制器中代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Route(&quot;Details/&#123;role:roles&#125;&quot;)]</span><br><span class="line">public ActionResult Details(string role)</span><br><span class="line">&#123;</span><br><span class="line">	return Content(&quot;&lt;h2&gt;&quot; + role + &quot;&lt;/h2&gt;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当访问“/Users/Details/R01111，/Users/Details/R00111”时<br><img src="/img/2016/10/addzidingyiluyouyueshu.png" alt="自定义路由 Icon"><br><img src="/img/2016/10/addzidingyiluyouyueshu2.png" alt="自定义路由 Icon"><br>访问“/Users/Details/R011111”时<br><img src="/img/2016/10/addzidingyiluyouyueshu1.png" alt="自定义路由 Icon"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、当一个控制器使用特性路由时，最好也应用到操作上，以防与默认路由或其他普通路由的设定相冲突。<br>2、进行复杂项目开发时，最好避免大范围的使用特性路由，因为过多时将会增加维护成本。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mvc5入门学习/" rel="tag">#Mvc5入门学习</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/Mvc5入门学习之路由配置/" rel="next" title="Mvc5入门学习之路由配置">
+                <i class="fa fa-chevron-left"></i> Mvc5入门学习之路由配置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/17/Mvc5入门学习之特性路由/"
+     data-title="Mvc5入门学习之特性路由"
+     data-content=""
+     data-url="http://ycdo.github.com/2016/10/17/Mvc5入门学习之特性路由/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/17/Mvc5入门学习之特性路由/"
+           data-title="Mvc5入门学习之特性路由" data-url="http://ycdo.github.com/2016/10/17/Mvc5入门学习之特性路由/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://zhangbaolei.com/images/avatar2.png"
+               alt="张宝蕾" />
+          <p class="site-author-name" itemprop="name">张宝蕾</p>
+          <p class="site-description motion-element" itemprop="description">工欲善其事，必先利其器</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性路由"><span class="nav-number">1.</span> <span class="nav-text">特性路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张宝蕾</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ycdo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
